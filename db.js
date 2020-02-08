@@ -1,14 +1,8 @@
 const mongoose = require('mongoose');
-const db = process.env.MONGODB_URL || "mongodb://127.0.0.1/library";
+const db = process.env.MONGODB_URL || "mongodb://127.0.0.1/sai-fuels";
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect(db, { useUnifiedTopology: true, useMongoClient: true });
-        console.log("Mongo DB is connected");
-    } catch (err){
-        console.error(err.message);
-        process.exit(1);
-    }
-}
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connection.on('error', console.error.bind(console, "mongodb connection error "));
 
-module.exports = connectDB;
+module.exports = mongoose
+;
